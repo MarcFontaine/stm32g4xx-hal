@@ -28,8 +28,8 @@ fn main() -> ! {
     let mut rcc = dp.RCC.freeze(Config::hsi(), pwr);
 
     info!("Init Led");
-    let gpioa = dp.GPIOA.split(&mut rcc);
-    let mut led = gpioa.pa5.into_push_pull_output();
+    let gpio = dp.GPIOC.split(&mut rcc);
+    let mut led = gpio.pc6.into_push_pull_output();
 
     info!("Init SYST delay");
     let mut delay_syst = cp.SYST.delay(&rcc.clocks);

@@ -14,7 +14,7 @@ use stm32g4xx_hal as hal;
 use usb_device::prelude::*;
 use usbd_serial::{SerialPort, USB_CLASS_CDC};
 
-use panic_probe as _;
+//use panic_probe as _;
 
 #[macro_use]
 mod utils;
@@ -29,8 +29,9 @@ fn main() -> ! {
     rcc.enable_hsi48();
 
     let gpioa = dp.GPIOA.split(&mut rcc);
+    let gpioc = dp.GPIOC.split(&mut rcc);
 
-    let mut led = gpioa.pa5.into_push_pull_output();
+    let mut led = gpioc.pc6.into_push_pull_output();
     led.set_low();
 
     let usb_dm = gpioa.pa11.into_alternate();
@@ -47,8 +48,8 @@ fn main() -> ! {
 
     let mut usb_dev = UsbDeviceBuilder::new(&usb_bus, UsbVidPid(0x16c0, 0x27dd))
         .strings(&[StringDescriptors::default()
-            .manufacturer("Fake company")
-            .product("Serial port")
+            .manufacturer("DM1MF")
+            .product("XK852 Interface")
             .serial_number("TEST")])
         .unwrap()
         .device_class(USB_CLASS_CDC)
@@ -68,7 +69,7 @@ fn main() -> ! {
                 // Echo back in upper case
                 for c in buf[0..count].iter_mut() {
                     if 0x61 <= *c && *c <= 0x7a {
-                        *c &= !0x20;
+                        *c += 1;
                     }
                 }
 

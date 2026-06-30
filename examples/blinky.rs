@@ -23,8 +23,8 @@ fn main() -> ! {
     let mut rcc = dp.RCC.constrain();
 
     info!("Init Led");
-    let gpioa = dp.GPIOA.split(&mut rcc);
-    let mut led = gpioa.pa5.into_push_pull_output();
+    let gpio = dp.GPIOC.split(&mut rcc);
+    let mut led = gpio.pc6.into_push_pull_output();
 
     loop {
         info!("Set Led low");
