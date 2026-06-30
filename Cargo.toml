@@ -71,8 +71,9 @@ cfg-if = "0.1.10"
 mpu6050 = "0.1.4"
 bme680 = "0.6.0"
 embedded-sdmmc = "0.3.0"
-usb-device = { version = "0.3.2", features = ["defmt"] }
+usb-device = { version = "0.3.2", features = ["defmt", "control-buffer-256"] }
 usbd-serial = "0.2.2"
+usbd-audio = "0.4"
 rand = { version = "0.9", default-features = false }
 
 #TODO: Separate feature sets
