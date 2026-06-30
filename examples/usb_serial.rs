@@ -14,6 +14,8 @@ use stm32g4xx_hal as hal;
 use usb_device::prelude::*;
 use usbd_serial::{SerialPort, USB_CLASS_CDC};
 
+use utils::logger::info;
+
 //use panic_probe as _;
 
 #[macro_use]
@@ -74,6 +76,7 @@ fn main() -> ! {
                 }
 
                 let mut write_offset = 0;
+                info!("loop");
                 while write_offset < count {
                     match serial.write(&buf[write_offset..count]) {
                         Ok(len) if len > 0 => {
